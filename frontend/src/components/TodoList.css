@@ -1,0 +1,70 @@
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  transition: all 0.2s;
+  animation: slideIn 0.25s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.todo-item:hover { background: rgba(255,255,255,0.07); }
+
+.todo-item.done { opacity: 0.5; }
+.todo-item.done .todo-title { text-decoration: line-through; color: #6b7280; }
+
+.check-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: #6366f1;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.check-btn:hover { border-color: #6366f1; background: rgba(99,102,241,0.1); }
+.todo-item.done .check-btn { background: #6366f1; border-color: #6366f1; color: #fff; }
+
+.todo-title {
+  flex: 1;
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #374151;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+  opacity: 0;
+}
+
+.todo-item:hover .delete-btn { opacity: 1; }
+.delete-btn:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
