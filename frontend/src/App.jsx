@@ -8,7 +8,7 @@ function App() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const API = "/api/todos";
+  const API = "https://mern-todo-backend-ddjh.onrender.com/api/todos";
 
   useEffect(() => {
     fetchTodos();
