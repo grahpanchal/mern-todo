@@ -15,7 +15,10 @@ const generateToken = (userId) => {
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
-
+    // ← Yeh validation add karo
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Sab fields required hain!" });
+    }
     // User already exists?
     const existingUser = await User.findOne({ email });
     if (existingUser) {
