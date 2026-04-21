@@ -10,25 +10,22 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install backend deps
-        run: cd backend && npm install
+        run: |
+          cd backend
+          npm install
 
       - name: Run tests
-        run: cd backend && npm test
-        env:
-          MONGO_URI: ${{ secrets.MONGO_URI }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_EXPIRE: ${{ secrets.JWT_EXPIRE }}
-
-      - name: Build Docker images
-        run: docker-compose build
+        run: |
+          cd backend
+          npm test
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
