@@ -22,9 +22,17 @@ jobs:
 
       - name: Run tests
         run: cd backend && npm test
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_EXPIRE: ${{ secrets.JWT_EXPIRE }}
 
       - name: Build Docker images
         run: docker-compose build
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_EXPIRE: ${{ secrets.JWT_EXPIRE }}
 
       - name: Deploy done
-        run: echo "✅ Docker build successful!"
+        run: echo "✅ All tests passed — Production deployed!"

@@ -9,9 +9,9 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI=mongodb+srv://grahpanchal_db_user:UYnjFLsDA3IV5UUf@mern-todo.n8safub.mongodb.net/?appName=mern-todo
-      - JWT_SECRET=mern_todo_super_secret_key_2024
-      - JWT_EXPIRE=7d
+      - MONGO_URI=${MONGO_URI}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRE=${JWT_EXPIRE}
       - PORT=5000
     networks:
       - mern-network
