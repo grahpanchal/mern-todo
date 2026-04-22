@@ -18,18 +18,23 @@ jobs:
           node-version: '20'
 
       - name: Install backend deps
-        run: |
-          cd backend
-          npm install
+        run: cd backend && npm install
 
       - name: Run tests
-        run: |
-          cd backend
-          npm test
+        run: cd backend && npm test
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_EXPIRE: ${{ secrets.JWT_EXPIRE }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+
+      - name: Install frontend deps
+        run: cd frontend && npm install
+
+      - name: Build frontend
+        run: cd frontend && npm run build
+        env:
+          REACT_APP_SENTRY_DSN: ${{ secrets.REACT_APP_SENTRY_DSN }}
 
       - name: Deploy done
-        run: echo "✅ All tests passed — Production deployed!"
+        run: echo "✅ Deployed with Sentry monitoring!"
