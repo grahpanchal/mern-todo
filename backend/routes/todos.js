@@ -108,6 +108,27 @@ router.put("/:id", protect, async (req, res) => {
   }
 });
 
+// PUT edit title
+router.put("/:id/edit", protect, async (req, res) => {
+  try {
+    const todo = await Todo.findOne({
+      _id: req.params.id,
+      userId: req.userId,
+    });
+    if (!todo) return res.status(404).json({ message: "Todo not found!" });
+
+    todo.title = req.body.title;
+    const updated = await todo.save();
+
+    const io = req.app.get("io");
+    io.to(req.userId.toString()).emit("todo:updated", updated);
+
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 // DELETE todo
 router.delete("/:id", protect, async (req, res) => {
   try {

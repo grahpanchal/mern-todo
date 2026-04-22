@@ -469,7 +469,13 @@ function TodoApp() {
       console.error(err);
     }
   };
-
+  const editTodo = async (id, newTitle) => {
+    try {
+      await api.put(`${API}/${id}/edit`, { title: newTitle }, { headers });
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const deleteTodo = async (id) => {
     try {
       await api.delete(`${API}/${id}`, { headers });
@@ -529,7 +535,12 @@ function TodoApp() {
           </button>
         </div>
 
-        <TodoList todos={todos} onToggle={toggleTodo} onDelete={deleteTodo} />
+        <TodoList
+          todos={todos}
+          onToggle={toggleTodo}
+          onDelete={deleteTodo}
+          onEdit={editTodo}
+        />
 
         {todos.length === 0 && (
           <div className="empty">No tasks yet! Add one above ☝️</div>
