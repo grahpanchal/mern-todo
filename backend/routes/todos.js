@@ -78,7 +78,7 @@ router.post("/", protect, async (req, res) => {
 
     // Socket event emit karo
     const io = req.app.get("io");
-    io.emit("todo:added", savedTodo);
+    io.to(req.userId.toString()).emit("todo:added", savedTodo);
 
     res.status(201).json(savedTodo);
   } catch (err) {
@@ -99,8 +99,8 @@ router.put("/:id", protect, async (req, res) => {
     const updated = await todo.save();
 
     // Socket event emit karo
-    const io = req.app.get("io");
-    io.emit("todo:updated", updated);
+   const io = req.app.get("io");
+   io.to(req.userId.toString()).emit("todo:updated", updated);
 
     res.json(updated);
   } catch (err) {
@@ -117,8 +117,10 @@ router.delete("/:id", protect, async (req, res) => {
     });
 
     // Socket event emit karo
-    const io = req.app.get("io");
-    io.emit("todo:deleted", { id: req.params.id });
+     const io = req.app.get("io");
+     io.to(req.userId.toString()).emit("todo:deleted", {
+       id: req.params.id,
+     });
 
     res.json({ message: "Todo deleted!" });
   } catch (err) {
